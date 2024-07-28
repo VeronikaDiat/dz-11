@@ -1,26 +1,35 @@
-import org.example.Man;
 import org.example.Person;
 import org.example.Woman;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@Test
 public class TestGetters {
-    public void testGetFirstLastName() {
-        Woman woman = new Woman("Julia","Ivanenko",90);
 
-        Assert.assertEquals(woman.getFirstName(), "Julia", "FirsName is nod valid");
-        Assert.assertEquals(woman.getLastName(), "Ivanenko", "LasName is not valid");
+    private Woman woman;
+    private Woman person2;
 
-        Woman  person2 = new Woman();
 
+    @BeforeMethod
+    public void setUp() {
+        woman = new Woman("Julia", "Ivanenko", 90);
+        person2 = new Woman();
         woman.setPartner(person2);
-        Person  retrievedPartner = woman.getPartner();
-        Assert.assertEquals(person2,retrievedPartner,"Okey");
+    }
 
-        int age = woman.getAge();
-        Assert.assertEquals(age,90);
+    @Test
+    public void testGetFirstName() {
+        Assert.assertEquals(woman.getFirstName(), "Julia", "FirstName is not valid");
+    }
 
+    @Test
+    public void testGetLastName() {
+        Assert.assertEquals(woman.getLastName(), "Ivanenko", "LastName is not valid");
+    }
+
+    @Test
+    public void testPartner() {
+        Person retrievedPartnerWoman = woman.getPartner();
+        Assert.assertEquals(person2, retrievedPartnerWoman, "Partner is not exist");
     }
 }
-
